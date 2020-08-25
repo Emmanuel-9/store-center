@@ -16,6 +16,7 @@
                 {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+
                     aria-haspopup="true"
                     aria-expanded="false">{{ user.username|title }} <img class="rounded-circle nav-img"
                         src="{{ user.profile.profile_picture.url }}"
@@ -33,8 +34,6 @@
                         </a>
                         <hr>
                         <a href="{% url 'logout' %}" class="btn btn-sm btn-outline-danger d-block mx-auto"> Logout</a>
-
-
                     </div>
                 </li>
                 {% else %}
@@ -47,13 +46,14 @@
                 </li>
                 {% endif %}
             </ul>
+
                 <div class="navbar-nav">
             <div class="text-center">
             <form class="form-inline my-2 my-lg-0" role="search" action="">
             <input style="text-align: center;"  class="form-control" name="username" type="search" placeholder="Search... " aria-label="Search">
             </form>
-        </div>
-    </div>
+            </div>
+                </div>
         </div>
     </div>
 </nav>
