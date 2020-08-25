@@ -2,9 +2,9 @@
 {% load bootstrap4 %}
 
 {% block content %}
-<div class="container"><br><br>
+<div class="container"><br><br><br>
     <div class="row sign-up">
-    <img src="/static/images/login.jpeg" width="500" height="500" >
+    <img src="/static/images/login.jpeg" width="500" height="500" id="img" style="border-radius: 20%;%">
     <div class="col-md-2">
   </div>
         <div class="col-md-4">
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="section">
-                <p>Don't have an account? <a href="{% url 'register' %}">Sign-Up Here</a> <p><a href="">Terms and Conditions</a></p>
+                <p>Don't have an account? <a href="{% url 'register' %}">Sign-Up</a> <p><a href="">Terms and Conditions</a></p>
             </div>
         </div>
           <div class="col-md-6">
