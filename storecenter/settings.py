@@ -20,14 +20,16 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = '^qy=x*4epm83+2imfuuo+b!hugcv34_a4gbig5u^3^%6r*f584'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework.authtoken',
+    'rest_framework',
     'crispy_forms',
     'bootstrap4',
     'store.apps.StoreConfig',
