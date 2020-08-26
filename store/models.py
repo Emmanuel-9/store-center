@@ -10,7 +10,7 @@ class StorageUnits(models.Model):
 class Goods(models.Model):
     goods_types = [
         (1,'fragile'),
-        (2,'robust'),
+        (2,'robust'), 
         (3,'perishable'),
     ]
     type = models.CharField(max_length=50, choices=goods_types)
