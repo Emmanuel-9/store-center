@@ -14,3 +14,10 @@ class Goods(models.Model):
         (3,'perishable'),
     ]
     type = models.CharField(max_length=50, choices=goods_types)
+
+class Profile(models.Model):
+    username = models.CharField(max_length=50)
+    items = models.TextField()
+    contact = models.CharField(max_length=50)
+    email = models.CharField(max_length=50)
+
