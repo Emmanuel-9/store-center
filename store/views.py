@@ -4,26 +4,31 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import StorageSerializer
 from .models import StorageUnits
+from django.contrib.auth.models import User
 from .permissions import IsAdminOrReadOnly
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, authenticate
 
 # Create your views here.
 
-login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def home(request):
 
     return render(request, 'index.html', locals())
 
-def register(response):
-    if response.method == "POST":
-        form = RegisterForm(response.POST)
+def register(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
             form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
         return redirect("login")
     else:
         form = RegisterForm()
-    return render(response,'registration/register.html',{'form':form})
+    return render(request,'registration/register.html',{'form':form})
 
 
 class StorageList(APIView):
