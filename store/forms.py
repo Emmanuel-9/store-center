@@ -10,8 +10,7 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ["username", "email", "password1","password2"]
 
-class EditProfileForm(forms.Form):
-    email = forms.EmailField() 
-    contact = forms.CharField()
-    profile_picture = forms.ImageField() 
-
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['profile_picture', 'items', 'contact', 'email']

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RegisterForm,EditProfileForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -9,7 +9,6 @@ from django.contrib.auth.models import User
 from .permissions import IsAdminOrReadOnly
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
-
 # Create your views here.
 
 @login_required(login_url='/accounts/login/')
@@ -38,22 +37,18 @@ class StorageList(APIView):
         return Response(serializers.data)    
         permission_classes = (IsAdminOrReadOnly,)
 
-def profile(request):
-    profile = UserProfile.get_all_userprofiles()
-    context = {
-        'profiles': profile,
-    }
-    return render(request, 'profile.html',context)         
+def profile(request, username):
+    return render(request, 'profile.html')         
 
-def update_profile(request):
-    user = request.user
+def update_profile(request, username):
+    user = User.objects.get(username=username)
     if request.method == 'POST':
         edit_form = EditProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
         if edit_form.is_valid():
             edit_form.save()
-            return redirect('profile.html')
+            return redirect('profile', user.id)
     else:
-        edit_form = EditProfileForm() 
+        edit_form = EditProfileForm(instance=request.user.userprofile) 
     context = {
         'profile_form': edit_form,
     }           
