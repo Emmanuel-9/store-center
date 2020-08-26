@@ -3,12 +3,9 @@ from .forms import RegisterForm,EditProfileForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import StorageSerializer
-<<<<<<< HEAD
 from .models import StorageUnits,UserProfile
-=======
 from .models import StorageUnits
 from django.contrib.auth.models import User
->>>>>>> 86891a54a86d13752153b3f5bc276826f3e1065b
 from .permissions import IsAdminOrReadOnly
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
