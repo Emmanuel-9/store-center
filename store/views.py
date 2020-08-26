@@ -1,15 +1,12 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm
+from .forms import RegisterForm,EditProfileForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import StorageSerializer
-from .models import StorageUnits
-<<<<<<< HEAD
-=======
+from .models import StorageUnits,UserProfile
 from .permissions import IsAdminOrReadOnly
 from django.contrib.auth.decorators import login_required
 
->>>>>>> d27a2d29d540455941b900ab5408b6f0bc00f000
 # Create your views here.
 
 login_required(login_url='/accounts/login/')
@@ -28,19 +25,30 @@ def register(response):
         form = RegisterForm()
     return render(response,'registration/register.html',{'form':form})
 
-<<<<<<< HEAD
-class StorageList(APIView):
-    def get(self, request, format=None):
-        all_storage = StorageUnits.objects.all()
-        serializers = StorageSerializer(all_storage, many=True)
-        return Response(serializers.data)
-
-=======
-
 class StorageList(APIView):
     def get(self, request, format=None):
         all_merch = StorageUnits.objects.all()
         serializers = StorageSerializer(all_merch, many=True)
         return Response(serializers.data)    
         permission_classes = (IsAdminOrReadOnly,)
->>>>>>> d27a2d29d540455941b900ab5408b6f0bc00f000
+
+def profile(request):
+    profile = UserProfile.get_all_userprofiles()
+    context = {
+        'profiles': profile,
+    }
+    return render(request, 'profile.html',context)         
+
+def update_profile(request):
+    user = request.user
+    if request.method == 'POST':
+        edit_form = EditProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
+        if edit_form.is_valid():
+            edit_form.save()
+            return redirect('profile.html')
+    else:
+        edit_form = EditProfileForm() 
+    context = {
+        'profile_form': edit_form,
+    }           
+    return render(request, 'edit_profile.html',context)

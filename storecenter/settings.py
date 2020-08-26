@@ -7,6 +7,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 from decouple import Csv, config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = '^qy=x*4epm83+2imfuuo+b!hugcv34_a4gbig5u^3^%6r*f584'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = False 
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
@@ -28,10 +29,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
-<<<<<<< HEAD
-=======
     'rest_framework.authtoken',
->>>>>>> d27a2d29d540455941b900ab5408b6f0bc00f000
     'rest_framework',
     'crispy_forms',
     'bootstrap4',
@@ -67,6 +65,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
+                
             ],
         },
     },
@@ -79,23 +79,15 @@ WSGI_APPLICATION = 'storecenter.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-<<<<<<< HEAD
+
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'store_center',
         'USER': 'manuel',
         'PASSWORD': '.Sct.111',
     }
-=======
-'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': 'store',
-    'USER': 'moringa',
-    'PASSWORD': '1234',
-    'HOST': 'localhost',
-    'PORT': 5432,
->>>>>>> d27a2d29d540455941b900ab5408b6f0bc00f000
-}
+
+
 
 }
 
@@ -137,3 +129,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
