@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm
+from .forms import RegisterForm,EditProfileForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import StorageSerializer
+from .models import StorageUnits,UserProfile
 from .models import StorageUnits
 from django.contrib.auth.models import User
 from .permissions import IsAdminOrReadOnly
@@ -30,10 +31,30 @@ def register(request):
         form = RegisterForm()
     return render(request,'registration/register.html',{'form':form})
 
-
 class StorageList(APIView):
     def get(self, request, format=None):
         all_merch = StorageUnits.objects.all()
         serializers = StorageSerializer(all_merch, many=True)
         return Response(serializers.data)    
         permission_classes = (IsAdminOrReadOnly,)
+
+def profile(request):
+    profile = UserProfile.get_all_userprofiles()
+    context = {
+        'profiles': profile,
+    }
+    return render(request, 'profile.html',context)         
+
+def update_profile(request):
+    user = request.user
+    if request.method == 'POST':
+        edit_form = EditProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
+        if edit_form.is_valid():
+            edit_form.save()
+            return redirect('profile.html')
+    else:
+        edit_form = EditProfileForm() 
+    context = {
+        'profile_form': edit_form,
+    }           
+    return render(request, 'edit_profile.html',context)
