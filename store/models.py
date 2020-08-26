@@ -10,6 +10,7 @@ class StorageUnits(models.Model):
 class Goods(models.Model):
     goods_types = [
         (1,'fragile'),
+<<<<<<< HEAD
         (2,'robust'), 
         (3,'perishable'),
     ]
@@ -21,3 +22,9 @@ class Profile(models.Model):
     contact = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
 
+=======
+        (2,'robust'),
+        (3,'perishable'),
+    ]
+    type = models.CharField(max_length=50, choices=goods_types)
+>>>>>>> d27a2d29d540455941b900ab5408b6f0bc00f000
