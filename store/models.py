@@ -59,7 +59,7 @@ class Slot(models.Model):
         self.delete()
 
     def __str__(self):
-        return f'{self.user.name} Slot'
+        return f'{self.user} Slot'
     
     @classmethod
     def get_user_slots(cls,user):
