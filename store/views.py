@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import RegisterForm,EditProfileForm
+from .forms import RegisterForm,EditProfileForm,SlotsForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import StorageSerializer
-from .models import StorageUnits,UserProfile
+from .models import StorageUnits,UserProfile,Slot
 from .models import StorageUnits
 from django.contrib.auth.models import User
 from .permissions import IsAdminOrReadOnly
@@ -53,3 +53,15 @@ def update_profile(request, username):
         'profile_form': edit_form,
     }           
     return render(request, 'edit_profile.html',context)
+
+def add_slot(request):
+    if request.method == 'POST':
+        form = SlotsForm(request.POST, request.FILES)
+        if form.is_valid():
+            slot = form.save(commit=False)
+            slot.user = request.user.userprofile
+            slot.save()
+            return redirect('home')
+    else:
+        form = SlotsForm()
+    return render(request, 'bookslot.html', {'form': form})

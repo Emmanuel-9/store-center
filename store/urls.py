@@ -13,6 +13,7 @@ urlpatterns = [
     path('profile/<username>/update/',views.update_profile, name='update_profile'), 
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('account/', include('django.contrib.auth.urls')),
+    path('new-slot/', views.add_slot, name='new-slot'),
     
 ]
 if settings.DEBUG:

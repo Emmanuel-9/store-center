@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="container bg-info" style="color:white;">
+<div class="container bg-info" style="color:white;margin-top: 4%;">
     <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-md-10">
+        <div class="col-md-10"><br><br><br>
             <h3 class="text-center">Book your slot here!</h3>
             <form action="" method="post" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
@@ -13,6 +13,6 @@
             </form>
         </div>
         <div class="col-md-1"></div>
-    </div>
+    </div><br><br><br><br><br>
 </div>
 {% endblock %}
