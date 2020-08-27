@@ -14,6 +14,9 @@ class StorageUnits(models.Model):
 
     
 
+
+    
+
 class Goods(models.Model):
     goods_types = [
         (1,'fragile'),
