@@ -25,7 +25,7 @@ class Goods(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to='media/')
+    profile_picture = models.ImageField(upload_to='media/',default='porsche.jpeg')
     items = models.TextField()
     contact = models.CharField(max_length=50)
     email = models.EmailField()
@@ -51,7 +51,7 @@ class Slot(models.Model):
 
     def get_absolute_url(self):
         return f"/slot/{self.id}"
-
+ 
     def save_image(self):
         self.save()
 

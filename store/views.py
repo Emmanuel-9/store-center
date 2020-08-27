@@ -54,8 +54,15 @@ class StorageList(APIView):
         permission_classes = (IsAdminOrReadOnly,)
 
 def profile(request, username):
-    return render(request, 'profile.html')         
-
+    try:
+        user = User.objects.get(pk = username)
+        profile = UserProfile.objects.get(user = user)
+        slots = Slot.get_user_slots(profile.id)
+        slots_count = slots.count()
+    except Slot.DoesNotExist:
+        slots = None
+    return render(request, 'profile.html',{'slots': slots, 'count': slots_count})
+    
 def update_profile(request, username):
     user = User.objects.get(username=username)
     if request.method == 'POST':
