@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 
 # Create your models here.
 class StorageUnits(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     slots = models.CharField(max_length=100)
     type_of_goods = models.CharField(max_length=50)
     start_date_of_storage = models.DateTimeField(default=timezone.now)
@@ -25,10 +26,14 @@ class Goods(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to='media/')
+    profile_picture = models.ImageField(default='porsche.jpg',upload_to='media/')
     items = models.TextField()
     contact = models.CharField(max_length=50)
     email = models.EmailField()
+    goods_slots = models.CharField(max_length=300, null=True)
+    
+    
+    
 
     def __str__(self):
         return f'{self.user.username}'
