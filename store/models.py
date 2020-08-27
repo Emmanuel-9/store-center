@@ -65,5 +65,21 @@ class Slot(models.Model):
     def get_user_slots(cls,user):
         return cls.objects.filter(user=user)
 
-    
-    
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='categories/')
+    cost = models.IntegerField(blank=False)
+    slots_remaining = models.IntegerField(null=True, blank=False)
+
+    def __str__(self):
+        return f'{self.name} category'
+
+    def create_category(self):
+        self.save()
+
+    def delete_category(self):
+        self.delete()
+
+    @classmethod
+    def find_category(cls, category_id):
+        return cls.objects.filter(id=category_id)    

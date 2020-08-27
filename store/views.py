@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import RegisterForm,EditProfileForm,SlotsForm
+from .forms import RegisterForm,EditProfileForm,SlotsForm,CategoryForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import StorageSerializer
-from .models import StorageUnits,UserProfile,Slot
+from .models import StorageUnits,UserProfile,Slot,Category
 from .models import StorageUnits
 from django.contrib.auth.models import User
 from .permissions import IsAdminOrReadOnly
@@ -13,8 +13,24 @@ from django.contrib.auth import login, authenticate
 
 @login_required(login_url='/accounts/login/')
 def home(request):
+    categories = Category.objects.all()
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, request.FILES)
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.save()
+    else:
+        form = CategoryForm()
+    try:
+        categories = Category.objects.all()
+    except Category.DoesNotExist:
+        categories = None
+    params = {
+        'categories': categories,
+        'form': form,
+    }
 
-    return render(request, 'index.html', locals())
+    return render(request, 'index.html', params)
 
 def register(request):
     if request.method == "POST":

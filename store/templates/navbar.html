@@ -9,6 +9,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="nav navbar-nav ml-auto navbar-right" style="margin-right: 7%;">
                 {% if user.is_authenticated %}
+                <div class="add" style="margin-bottom: 1%;"><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#categoryupload" aria-hidden="true">Add Category</button></div>
                 <a class="nav-link" href="/" style="text-decoration: none;color: white;margin-top: 0.6%;">Home</a>
                 <a class="nav-link" href="/admin" style="text-decoration: none;color: white;margin-top: 0.6%;">Admins</a>
                 {% endif %}
