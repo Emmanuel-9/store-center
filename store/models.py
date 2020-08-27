@@ -42,5 +42,28 @@ class UserProfile(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.userprofile.save()
 
+class Slot(models.Model):
+    image_of_good = models.ImageField(upload_to='slots/')
+    name_of_good = models.CharField(max_length=250)
+    mass_of_good_in_kgs = models.IntegerField(blank=False)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='slots')
+    added = models.DateTimeField(auto_now_add=True, null=True)
+
+    def get_absolute_url(self):
+        return f"/slot/{self.id}"
+
+    def save_image(self):
+        self.save()
+
+    def delete_image(self):
+        self.delete()
+
+    def __str__(self):
+        return f'{self.user.name} Slot'
+    
+    @classmethod
+    def get_user_slots(cls,user):
+        return cls.objects.filter(user=user)
+
     
     
