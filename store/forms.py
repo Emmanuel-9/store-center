@@ -13,7 +13,7 @@ class RegisterForm(UserCreationForm):
 class EditProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['profile_picture', 'items', 'contact', 'email']
+        fields = ['profile_picture', 'items', 'contact', 'email','location_address']
 
 class SlotsForm(forms.ModelForm):
     class Meta:

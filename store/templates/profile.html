@@ -10,6 +10,9 @@
         <p class="text-center mt-3" style="font-size: 20px;">{{user.username}}</p>
         <p>Email: {{user.email}}</p>
         <p>Contact: {{user.userprofile.contact}}</p>
+        <p>Items: {{user.userprofile.items}}  </p>
+        <p> Location: {{user.userprofile.location_address}}  </p>
+        <p> </p>
         <a href="{% url 'update_profile' user.username%}" style="text-align: center;"><button type="button" class="btn btn-success btn-sm"> Update profile </button></a>
         </div>
        </div>
