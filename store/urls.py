@@ -14,6 +14,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('account/', include('django.contrib.auth.urls')),
     path('new-slot/', views.add_slot, name='new-slot'),
+    path('slot-info/<username>/', views.slots_info, name='slots-info'),
     
 ]
 if settings.DEBUG:
