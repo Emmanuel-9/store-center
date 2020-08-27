@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 # Create your views here.
 
-@login_required(login_url='/accounts/login/')
+# @login_required(login_url='/accounts/login/')
 def home(request):
     categories = Category.objects.all()
     if request.method == 'POST':
@@ -54,8 +54,15 @@ class StorageList(APIView):
         permission_classes = (IsAdminOrReadOnly,)
 
 def profile(request, username):
-    return render(request, 'profile.html')         
-
+    try:
+        user = User.objects.get(pk = username)
+        profile = UserProfile.objects.get(user = user)
+        slots = Slot.get_user_slots(profile.id)
+        slots_count = slots.count()
+    except Slot.DoesNotExist:
+        slots = None
+    return render(request, 'profile.html',{'slots': slots, 'count': slots_count})
+    
 def update_profile(request, username):
     user = User.objects.get(username=username)
     if request.method == 'POST':
@@ -81,3 +88,13 @@ def add_slot(request):
     else:
         form = SlotsForm()
     return render(request, 'bookslot.html', {'form': form})
+
+def slots_info(request, username):
+    try:
+        user = User.objects.get(pk = username)
+        profile = UserProfile.objects.get(user = user)
+        slots = Slot.get_user_slots(profile.id)
+        slots_count = slots.count()
+    except Slot.DoesNotExist:
+        slots = None
+    return render(request, 'slotsinfo.html',{'slots': slots, 'count': slots_count})
