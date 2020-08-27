@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 # Create your views here.
 
-# @login_required(login_url='/accounts/login/')
+
 def home(request):
     categories = Category.objects.all()
     if request.method == 'POST':
@@ -77,6 +77,7 @@ def update_profile(request, username):
     }           
     return render(request, 'edit_profile.html',context)
 
+@login_required(login_url='/accounts/login/')
 def add_slot(request):
     if request.method == 'POST':
         form = SlotsForm(request.POST, request.FILES)
@@ -89,6 +90,7 @@ def add_slot(request):
         form = SlotsForm()
     return render(request, 'bookslot.html', {'form': form})
 
+@login_required(login_url='/accounts/login/')
 def slots_info(request, username):
     try:
         user = User.objects.get(pk = username)
