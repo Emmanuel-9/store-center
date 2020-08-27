@@ -51,7 +51,7 @@
                         <p><strong>Slots remaining: {{category.slots_remaining}} slots</strong></p>
                     </div>
                     <hr>
-                    <h4 class="card-title text-center"><a class="btn btn-sm btn-outline-info" href="{% url 'new-slot' %}">Book slot</a><a class="btn btn-sm btn-outline-info" href=" ">Slots info</a> </h4>
+                    <h4 class="card-title text-center"><a class="btn btn-sm btn-outline-info" href="{% url 'new-slot' %}">Book slot</a><a class="btn btn-sm btn-outline-info" href="{% url 'slots-info' user.id %}">Slots info</a> </h4>
             </div>
         </div>
         {% endfor %}
