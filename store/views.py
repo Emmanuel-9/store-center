@@ -32,25 +32,11 @@ def home(request):
 
     return render(request, 'index.html', params)
 
-def register(request):
-    return render(request, 'registration/register.html')
 
-class customer_register(CreateView):
+class register(CreateView):
     model = User
     form_class = CustomerSignUpForm
     template_name = 'registration/customer_register.html'
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect('login')
-
-
-class employee_register(CreateView):
-    model = User
-    form_class = EmployeeSignUpForm
-    template_name = 'registration/employee_register.html'
-
 
     def form_valid(self, form):
         user = form.save()
