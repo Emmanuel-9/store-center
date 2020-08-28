@@ -62,16 +62,16 @@ class Slot(models.Model):
     image_of_good = models.ImageField(upload_to='slots/')
     name_of_good = models.CharField(max_length=250)
     mass_of_good_in_kgs = models.IntegerField(blank=False)
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='slots')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='slots')
     added = models.DateTimeField(auto_now_add=True, null=True)
 
     def get_absolute_url(self):
         return f"/slot/{self.id}"
  
-    def save_image(self):
+    def save_slot(self):
         self.save()
 
-    def delete_image(self):
+    def delete_slot(self):
         self.delete()
 
     def __str__(self):
@@ -80,6 +80,15 @@ class Slot(models.Model):
     @classmethod
     def get_user_slots(cls,user):
         return cls.objects.filter(user=user)
+    
+    @classmethod
+    def all_slots(cls):
+        return cls.objects.all()
+
+    @classmethod
+    def find_slot(cls, slot_id):
+        return cls.objects.filter(id=slot_id) 
+
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
