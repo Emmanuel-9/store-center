@@ -17,7 +17,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('new-slot/', views.add_slot, name='new-slot'),
     path('slot-info/<username>/', views.slots_info, name='slots-info'),
-    
+    path('delivery/', views.delivery, name='delivery'),
+
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
