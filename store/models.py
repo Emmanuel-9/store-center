@@ -1,11 +1,27 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 
 # Create your models here.
+class User(AbstractUser):
+    is_customer = models.BooleanField(default=False)
+    is_employee = models.BooleanField(default=False)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+
+
+class Customer(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
+    email = models.EmailField(blank=True)
+
+class Employee(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
+    email = models.EmailField(blank=True)
+
+
 class StorageUnits(models.Model):
     slots = models.CharField(max_length=100)
     type_of_goods = models.CharField(max_length=50)

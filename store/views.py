@@ -1,14 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import RegisterForm,EditProfileForm,SlotsForm,CategoryForm
+from .forms import EditProfileForm,SlotsForm,CategoryForm,CustomerSignUpForm,EmployeeSignUpForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import StorageSerializer
-from .models import StorageUnits,UserProfile,Slot,Category
-from .models import StorageUnits
-from django.contrib.auth.models import User
+from .models import StorageUnits,UserProfile,Slot,Category,User
 from .permissions import IsAdminOrReadOnly
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
+from django.views.generic import CreateView
 # Create your views here.
 
 
@@ -33,18 +32,43 @@ def home(request):
     return render(request, 'index.html', params)
 
 def register(request):
-    if request.method == "POST":
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
-            login(request, user)
-        return redirect("login")
-    else:
-        form = RegisterForm()
-    return render(request,'registration/register.html',{'form':form})
+    return render(request, 'registration/register.html')
+
+class customer_register(CreateView):
+    model = User
+    form_class = CustomerSignUpForm
+    template_name = 'registration/customer_register.html'
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('login')
+
+
+class employee_register(CreateView):
+    model = User
+    form_class = EmployeeSignUpForm
+    template_name = 'registration/employee_register.html'
+
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('login')
+
+# def register(request):
+#     if request.method == "POST":
+#         form = RegisterForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             username = form.cleaned_data.get('username')
+#             password = form.cleaned_data.get('password1')
+#             user = authenticate(username=username, password=password)
+#             login(request, user)
+#         return redirect("login")
+#     else:
+#         form = RegisterForm()
+#     return render(request,'registration/register.html',{'form':form})
 
 class StorageList(APIView):
     def get(self, request, format=None):
