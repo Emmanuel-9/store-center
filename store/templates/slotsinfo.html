@@ -8,7 +8,44 @@
 </head>
 {% block content %}
 <div class="container">
+    {% if user.is_authenticated and user.is_employee %}
+    <div class="text-center" style="font-size: 30px;">There are {{countslots}} slot(s) in this category</div>
+    {% else %}
     <div class="text-center" style="font-size: 30px;">You have {{count}} slot(s) in this category</div>
+    {% endif %}
+    {% if user.is_authenticated and user.is_employee %}
+    <div class="row">
+        {% if employeeslots %}
+        {% for employeeslot in employeeslots %}
+        <div class="col-md-4 mb-4" style="padding-top: 2%;">
+            <div class="card" >
+                <div class="card-top bg-info" style="height: 90px;">
+                <h4 class="card-title" style="color: aliceblue;text-align: center; margin-top: 2%;">{{ employeeslot.name_of_good }}
+                    <form action="{% url 'slot_delete' employeeslot.id %}" method="post" class="btn btn-outline-danger">
+                    {% csrf_token %}
+                    <input type="submit" value='Delete' style="font-size: 10px;">
+                    </form>
+                </h4>
+                </div>
+                <img class="card-img" src="{{ employeeslot.image_of_good.url }}" alt="" style="height: 300px;">
+                <div class="card-body" style="height: 150px;">
+                    <p><strong>Mass:</strong> {{employeeslot.mass_of_good_in_kgs}}kgs</p>
+                    <p><strong>Current cost to be paid:</strong> shs</p>
+                    <p><strong>Date of submission:</strong> {{ employeeslot.added|date }}</p>
+                    <p><strong>Submitted by:</strong> {{ employeeslot.user.username }}</p>
+                </div>
+                <hr>
+                <h4 class="card-title text-center"><a class="btn btn-sm btn-warning" href="">Deliver</a> </h4>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+            <h5 class="text-center">There are <strong style="color: red;">no</strong> slots in this category <a class="d-block mx-auto" href="/">
+                <button class="btn btn-sm btn-info d-block mx-auto">Back Home</button></a></h5>
+            <img src="/static/images/noslots.png" alt="noslots" height="300px" width="300px" style="margin-top: 5%;">
+        {% endif %}
+    </div>
+    {% else %}
     <div class="row">
         {% if slots %}
         {% for slot in slots %}
@@ -34,5 +71,6 @@
             <img src="/static/images/noslots.png" alt="noslots" height="300px" width="300px" style="margin-top: 5%;">
         {% endif %}
     </div>
+    {% endif %}
 </div>
 {% endblock %}

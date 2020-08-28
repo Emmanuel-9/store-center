@@ -8,6 +8,7 @@ from .permissions import IsAdminOrReadOnly
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.views.generic import CreateView
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 
@@ -94,7 +95,7 @@ def add_slot(request):
         form = SlotsForm(request.POST, request.FILES)
         if form.is_valid():
             slot = form.save(commit=False)
-            slot.user = request.user.userprofile
+            slot.user = request.user
             slot.save()
             return redirect('home')
     else:
@@ -108,9 +109,19 @@ def slots_info(request, username):
         profile = UserProfile.objects.get(user = user)
         slots = Slot.get_user_slots(profile.id)
         slots_count = slots.count()
+        employeeslots = Slot.all_slots()
+        countslots = employeeslots.count()
     except Slot.DoesNotExist:
         slots = None
-    return render(request, 'slotsinfo.html',{'slots': slots, 'count': slots_count})
+    return render(request, 'slotsinfo.html',{'slots': slots, 'employeeslots': employeeslots, 'count': slots_count, 'countslots': countslots})
+
+def employeeslots_info(request):
+    try:
+        employeeslots = Slot.all_slots()
+        countslots = employeeslots.count()
+    except Slot.DoesNotExist:
+        employeeslots = None
+    return render(request, 'slotsinfo.html',{'employeeslots': employeeslots, 'countslots': countslots})
 
 
 def delivery(request):
@@ -125,3 +136,16 @@ def delivery(request):
         form = DeliveryForm()
     return render(request, 'delivery.html', {'form': form})
 
+def card_delete(request, id):
+    card_that_is_ready_to_be_deleted = get_object_or_404(Category, id=id)
+    if request.method == 'POST':
+        card_that_is_ready_to_be_deleted.delete()
+
+    return redirect('home')
+
+def slot_delete(request, id):
+    slot_that_is_ready_to_be_deleted = get_object_or_404(Slot, id=id)
+    if request.method == 'POST':
+        slot_that_is_ready_to_be_deleted.delete()
+
+    return redirect('employeeslots-info')
