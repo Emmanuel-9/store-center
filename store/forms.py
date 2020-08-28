@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User,Employee,Customer,UserProfile,Slot,Category
+from .models import User,Employee,Customer,UserProfile,Slot,Category, Delivery
 from django.db import transaction
 
 
@@ -60,3 +60,8 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ['name', 'image', 'cost', 'slots_remaining']
+        
+class DeliveryForm(forms.ModelForm):
+    class Meta:
+        model = Delivery
+        exclude = []

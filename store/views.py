@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import EditProfileForm,SlotsForm,CategoryForm,CustomerSignUpForm,EmployeeSignUpForm
+from .forms import EditProfileForm,SlotsForm,CategoryForm,CustomerSignUpForm,EmployeeSignUpForm, DeliveryForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import StorageSerializer
@@ -56,19 +56,6 @@ class employee_register(CreateView):
         login(self.request, user)
         return redirect('login')
 
-# def register(request):
-#     if request.method == "POST":
-#         form = RegisterForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             password = form.cleaned_data.get('password1')
-#             user = authenticate(username=username, password=password)
-#             login(request, user)
-#         return redirect("login")
-#     else:
-#         form = RegisterForm()
-#     return render(request,'registration/register.html',{'form':form})
 
 class StorageList(APIView):
     def get(self, request, format=None):
@@ -124,3 +111,17 @@ def slots_info(request, username):
     except Slot.DoesNotExist:
         slots = None
     return render(request, 'slotsinfo.html',{'slots': slots, 'count': slots_count})
+
+
+def delivery(request):
+    if request.method == 'POST':
+        form = DeliveryForm(request.POST, request.FILES)
+        if form.is_valid():
+            delivery = form.save(commit=False)
+            delivery.user = request.user.userprofile
+            delivery.save()
+            return redirect('home')
+    else:
+        form = DeliveryForm()
+    return render(request, 'delivery.html', {'form': form})
+

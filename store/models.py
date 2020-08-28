@@ -99,3 +99,10 @@ class Category(models.Model):
     @classmethod
     def find_category(cls, category_id):
         return cls.objects.filter(id=category_id)    
+
+class Delivery(models.Model):
+    contact = models.CharField(max_length=10)
+    name = models.CharField(max_length=50)
+    location = models.CharField(max_length=50)
+    email = models.EmailField()
+    items = models.TextField()
