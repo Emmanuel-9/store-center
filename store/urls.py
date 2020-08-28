@@ -7,9 +7,7 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 urlpatterns = [
     path('',views.home,name='home'),
-    path('register/', views.register, name='register'),
-    path('customer_register/', views.customer_register.as_view(), name='customerregister'),
-    path('employee_register/', views.employee_register.as_view(), name='employeeregister'),
+    path('register/', views.register.as_view(), name='register'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('api/storage',views.StorageList.as_view()),
     path('profile/<username>/',views.profile, name='profile'),
