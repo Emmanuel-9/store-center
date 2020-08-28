@@ -61,7 +61,7 @@
                     <p><strong>Date of submission:</strong> {{ slot.added|date }}</p>
                 </div>
                 <hr>
-                <h4 class="card-title text-center"><a class="btn btn-sm btn-success" href="">Pick Up</a><a class="btn btn-sm btn-warning" href="{% url 'delivery'%}">Delivery</a> </h4>
+                <h4 class="card-title text-center"><a class="btn btn-sm btn-success" href="{% url 'pickup' %}">Pick Up</a><a class="btn btn-sm btn-warning" href="{% url 'delivery'%}">Delivery</a> </h4>
             </div>
         </div>
         {% endfor %}

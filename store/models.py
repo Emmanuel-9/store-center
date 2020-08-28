@@ -115,3 +115,11 @@ class Delivery(models.Model):
     location = models.CharField(max_length=50)
     email = models.EmailField()
     items = models.TextField()
+
+class Pickup(models.Model):
+    name_of_good = models.CharField(max_length=250)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    contact = models.CharField(max_length=50)
+    email = models.EmailField()
+    date_of_pickup = models.DateField()
+    time_of_pickup =models.TimeField(auto_now=False, auto_now_add=False)
