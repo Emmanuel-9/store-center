@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User,Employee,Customer,UserProfile,Slot,Category, Delivery
+from .models import User,Employee,Customer,UserProfile,Slot,Category, Delivery,Pickup
 from django.db import transaction
 
 
@@ -65,3 +65,8 @@ class DeliveryForm(forms.ModelForm):
     class Meta:
         model = Delivery
         exclude = []
+
+class PickupForm(forms.ModelForm):
+    class Meta:
+        model = Pickup
+        fields = ['contact', 'email',  'name_of_good', 'date_of_pickup', 'time_of_pickup']

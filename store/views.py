@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import EditProfileForm,SlotsForm,CategoryForm,CustomerSignUpForm,EmployeeSignUpForm, DeliveryForm
+from .forms import EditProfileForm,SlotsForm,CategoryForm,CustomerSignUpForm,EmployeeSignUpForm, DeliveryForm,PickupForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import StorageSerializer
@@ -149,3 +149,15 @@ def slot_delete(request, id):
         slot_that_is_ready_to_be_deleted.delete()
 
     return redirect('employeeslots-info')
+
+def pick_up(request):
+    if request.method == "POST":
+        form = PickupForm(request.POST)
+        if form.is_valid():
+            pick_up = form.save(commit=False)
+            pick_up.user= request.user
+            pick_up.save()
+            return redirect('home')
+    else:
+        form = PickupForm()
+    return render(request, 'pickup.html', {'form': form})
