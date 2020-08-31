@@ -24,10 +24,14 @@ class Employee(models.Model):
 
 class StorageUnits(models.Model):
     slots = models.IntegerField()
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
     type_of_goods = models.CharField(max_length=50)
     start_date_of_storage = models.DateTimeField(default=timezone.now)
 
+    def save_units(self):
+        self.save()
+
+    def delete_units(self):
+        self.delete()    
 class Goods(models.Model):
     goods_types = [
         (1,'fragile'),
@@ -44,7 +48,7 @@ class UserProfile(models.Model):
     items = models.TextField()
     contact = models.CharField(max_length=50)
     email = models.EmailField()
-    location_address = models.CharField(max_length=300) 
+    location_address = models.CharField(max_length=300, null=True) 
 
     def __str__(self):
         return f'{self.user.username}'
