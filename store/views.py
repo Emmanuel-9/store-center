@@ -100,9 +100,7 @@ def slots_info(request, category_id, username):
     except Slot.DoesNotExist:
         slots = None
 
-
-
-    return render(request, 'slotsinfo.html',{'slots': slots, 'employeeslots': employeeslots, 'count': slots_count, 'countslots': countslots})
+    return render(request, 'slotsinfo.html',{'slots': slots,  'count': slot_count})
     params = {
         'slots': slots, 
         'count': slot_count,
