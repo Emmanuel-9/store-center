@@ -23,9 +23,17 @@ class Employee(models.Model):
 
 
 class StorageUnits(models.Model):
+<<<<<<< HEAD
     slots = models.IntegerField()
+=======
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    slots = models.CharField(max_length=100)
+>>>>>>> feature-profile
     type_of_goods = models.CharField(max_length=50)
     start_date_of_storage = models.DateTimeField(default=timezone.now)
+
+    
+
 
     
 
@@ -41,11 +49,22 @@ class Goods(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+<<<<<<< HEAD
     profile_picture = models.ImageField(upload_to='media/',default='porsche.jpeg')
     items = models.TextField()
     contact = models.CharField(max_length=50)
     email = models.EmailField()
     location_address = models.CharField(max_length=300, null=True)
+=======
+    profile_picture = models.ImageField(default='porsche.jpg',upload_to='media/')
+    items = models.TextField()
+    contact = models.CharField(max_length=50)
+    email = models.EmailField()
+    goods_slots = models.CharField(max_length=300, null=True)
+    
+    
+    
+>>>>>>> feature-profile
 
     def __str__(self):
         return f'{self.user.username}'

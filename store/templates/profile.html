@@ -9,11 +9,18 @@
         <img class="rounded-circle d-block mx-auto" style="margin-top: 3%;height: 125px;width: 125px;" src="{{ user.userprofile.profile_picture.url }}">
         <p class="text-center mt-3" style="font-size: 20px;">{{user.username}}</p>
         <p>Email: {{user.email}}</p>
+        <p> Items: {{user.userprofile.items }}</p>
         <p>Contact: {{user.userprofile.contact}}</p>
+<<<<<<< HEAD
         <p>Items: {{user.userprofile.items}}  </p>
         <p> Location: {{user.userprofile.location_address}}  </p>
         <p> </p>
         <a href="{% url 'update_profile' user.username%}" style="text-align: center;"><button type="button" class="btn btn-success btn-sm"> Update profile </button></a>
+=======
+        <p> Slots: {{user.userprofile.goods_slots}} </p>
+        
+        <a href="{% url 'update_profile' user.username%}"><button type="button" class="btn btn-success btn-sm"> Update profile </button></a>
+>>>>>>> feature-profile
         </div>
        </div>
       </div><br>
