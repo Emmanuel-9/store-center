@@ -11,16 +11,9 @@
         <p>Email: {{user.email}}</p>
         <p> Items: {{user.userprofile.items }}</p>
         <p>Contact: {{user.userprofile.contact}}</p>
-<<<<<<< HEAD
-        <p>Items: {{user.userprofile.items}}  </p>
-        <p> Location: {{user.userprofile.location_address}}  </p>
-        <p> </p>
-        <a href="{% url 'update_profile' user.username%}" style="text-align: center;"><button type="button" class="btn btn-success btn-sm"> Update profile </button></a>
-=======
         <p> Slots: {{user.userprofile.goods_slots}} </p>
         
         <a href="{% url 'update_profile' user.username%}"><button type="button" class="btn btn-success btn-sm"> Update profile </button></a>
->>>>>>> feature-profile
         </div>
        </div>
       </div><br>
