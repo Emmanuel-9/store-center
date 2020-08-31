@@ -63,14 +63,6 @@ class CategoryForm(forms.ModelForm):
         model = Category
         fields = ['name', 'image', 'cost', 'slots_remaining']
 
-
-class DeliveryForm(forms.ModelForm):
-    class Meta:
-        model = Delivery
-        fields = ['recipient','contact','charges','location']
-
-
-        
 class DeliveryForm(forms.ModelForm):
     class Meta:
         model = Delivery

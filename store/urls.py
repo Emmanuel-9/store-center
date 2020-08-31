@@ -15,7 +15,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('new-slot/', views.add_slot, name='new-slot'),
     path('slot-info/<username>/', views.slots_info, name='slots-info'),
-    path('delivery',views.delivery, name='delivery')
     path('slots-info/', views.employeeslots_info, name='employeeslots-info'),
     path('delivery/', views.delivery, name='delivery'),
     path('deletecategory/<id>/', views.card_delete, name='card_delete'),
