@@ -20,7 +20,6 @@ urlpatterns = [
     path('deletecategory/<id>/', views.card_delete, name='card_delete'),
     path('deleteslot/<id>/', views.slot_delete, name='slot_delete'),
     path('pickup/', views.pick_up, name='pickup'),
-
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

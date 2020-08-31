@@ -99,11 +99,16 @@ def slots_info(request, category_id, username):
         slot_count = slots.count()
     except Slot.DoesNotExist:
         slots = None
+
+
+
+    return render(request, 'slotsinfo.html',{'slots': slots, 'employeeslots': employeeslots, 'count': slots_count, 'countslots': countslots})
     params = {
         'slots': slots, 
         'count': slot_count,
     }   
     return render(request, 'slotsinfo.html', params)
+
 
 def employeeslots_info(request,category_id):
     try:
@@ -152,3 +157,4 @@ def pick_up(request):
     else:
         form = PickupForm()
     return render(request, 'pickup.html', {'form': form})
+
