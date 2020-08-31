@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container bg-info" style="color:white;margin-top: 4%;">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10"><br><br><br>
+            <h3 class="text-center">Please fill the form for Pick up here!</h3>
+            <form action="" method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    {{form | crispy}}
+    
+                </fieldset>
+                <div class="form-group">
+                    <button type='submit' class="btn btn-sm btn-success">Pick up</button>
+                </div>
+            </form>
+            
+        </div>
+        
+    </div>
+</div>
+    
+    
+{% endblock %}

@@ -135,3 +135,5 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
 MEDIA_ROOT = os.path.join(BASE_DIR,)
 MEDIA_URL = '/media/'
+
+AUTH_USER_MODEL = 'store.User'

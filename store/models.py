@@ -1,11 +1,27 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 
 # Create your models here.
+class User(AbstractUser):
+    is_customer = models.BooleanField(default=False)
+    is_employee = models.BooleanField(default=False)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+
+
+class Customer(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
+    email = models.EmailField(blank=True)
+
+class Employee(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
+    email = models.EmailField(blank=True)
+
+
 class StorageUnits(models.Model):
     slots = models.IntegerField()
     type_of_goods = models.CharField(max_length=50)
@@ -55,16 +71,16 @@ class Slot(models.Model):
     image_of_good = models.ImageField(upload_to='slots/')
     name_of_good = models.CharField(max_length=250)
     mass_of_good_in_kgs = models.IntegerField(blank=False)
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='slots')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='slots')
     added = models.DateTimeField(auto_now_add=True, null=True)
 
     def get_absolute_url(self):
         return f"/slot/{self.id}"
  
-    def save_image(self):
+    def save_slot(self):
         self.save()
 
-    def delete_image(self):
+    def delete_slot(self):
         self.delete()
 
     def __str__(self):
@@ -73,6 +89,15 @@ class Slot(models.Model):
     @classmethod
     def get_user_slots(cls,user):
         return cls.objects.filter(user=user)
+    
+    @classmethod
+    def all_slots(cls):
+        return cls.objects.all()
+
+    @classmethod
+    def find_slot(cls, slot_id):
+        return cls.objects.filter(id=slot_id) 
+
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -94,10 +119,17 @@ class Category(models.Model):
         return cls.objects.filter(id=category_id)    
 
 class Delivery(models.Model):
-    recipient = models.CharField(max_length=100)
-    location = models.CharField(max_length=100)
-    charges = models.IntegerField()
-    contact = models.CharField(max_length=300)
-    
-    def __str__(self):
-        self.recipient
+    contact = models.CharField(max_length=10)
+    name = models.CharField(max_length=50)
+    location = models.CharField(max_length=50)
+    email = models.EmailField()
+    items = models.TextField()
+
+class Pickup(models.Model):
+    name_of_good = models.CharField(max_length=250)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    contact = models.CharField(max_length=50)
+    email = models.EmailField()
+    date_of_pickup = models.DateField()
+    time_of_pickup =models.TimeField(auto_now=False, auto_now_add=False)
+
