@@ -40,6 +40,26 @@ class Goods(models.Model):
     ]
     type = models.CharField(max_length=50, choices=goods_types)
 
+
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='categories/')
+    cost = models.IntegerField(blank=False)
+    slots_remaining = models.IntegerField(null=True, blank=False)
+
+    def __str__(self):
+        return f'{self.name} category'
+
+    def create_category(self):
+        self.save()
+
+    def delete_category(self):
+        self.delete()
+
+    @classmethod
+    def find_category(cls, category_id):
+        return cls.objects.filter(id=category_id)    
+
     
 
 class UserProfile(models.Model):
@@ -49,6 +69,7 @@ class UserProfile(models.Model):
     contact = models.CharField(max_length=50)
     email = models.EmailField()
     location_address = models.CharField(max_length=300, null=True) 
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f'{self.user.username}'
@@ -74,8 +95,9 @@ class Slot(models.Model):
     image_of_good = models.ImageField(upload_to='slots/')
     name_of_good = models.CharField(max_length=250)
     mass_of_good_in_kgs = models.IntegerField(blank=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='slots')
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='slots')
     added = models.DateTimeField(auto_now_add=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
     def get_absolute_url(self):
         return f"/slot/{self.id}"
@@ -94,6 +116,10 @@ class Slot(models.Model):
         return cls.objects.filter(user=user)
     
     @classmethod
+    def get_category_slots(cls,category):
+        return cls.objects.filter(category=category)
+    
+    @classmethod
     def all_slots(cls):
         return cls.objects.all()
 
@@ -102,24 +128,6 @@ class Slot(models.Model):
         return cls.objects.filter(id=slot_id) 
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='categories/')
-    cost = models.IntegerField(blank=False)
-    slots_remaining = models.IntegerField(null=True, blank=False)
-
-    def __str__(self):
-        return f'{self.name} category'
-
-    def create_category(self):
-        self.save()
-
-    def delete_category(self):
-        self.delete()
-
-    @classmethod
-    def find_category(cls, category_id):
-        return cls.objects.filter(id=category_id)    
 
 class Delivery(models.Model):
     contact = models.CharField(max_length=10)
