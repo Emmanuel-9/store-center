@@ -23,12 +23,15 @@ class Employee(models.Model):
 
 
 class StorageUnits(models.Model):
-    slots = models.CharField(max_length=100)
+    slots = models.IntegerField()
     type_of_goods = models.CharField(max_length=50)
     start_date_of_storage = models.DateTimeField(default=timezone.now)
 
-    
+    def save_units(self):
+        self.save()
 
+    def delete_units(self):
+        self.delete()    
 class Goods(models.Model):
     goods_types = [
         (1,'fragile'),
@@ -65,6 +68,7 @@ class UserProfile(models.Model):
     items = models.TextField()
     contact = models.CharField(max_length=50)
     email = models.EmailField()
+    location_address = models.CharField(max_length=300, null=True) 
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
@@ -78,6 +82,13 @@ class UserProfile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.userprofile.save()
+
+    def create_profile(self):
+        self.save()
+
+    def delete_profile(self):
+        self.delete()
+
 
 
 class Slot(models.Model):
@@ -132,3 +143,4 @@ class Pickup(models.Model):
     email = models.EmailField()
     date_of_pickup = models.DateField()
     time_of_pickup =models.TimeField(auto_now=False, auto_now_add=False)
+
