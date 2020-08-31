@@ -15,6 +15,7 @@ urlpatterns = [
     path('account/', include('django.contrib.auth.urls')),
     path('new-slot/', views.add_slot, name='new-slot'),
     path('slot-info/<username>/', views.slots_info, name='slots-info'),
+    path('delivery',views.delivery, name='delivery')
     
 ]
 if settings.DEBUG:

@@ -100,3 +100,6 @@ def slots_info(request, username):
     except Slot.DoesNotExist:
         slots = None
     return render(request, 'slotsinfo.html',{'slots': slots, 'count': slots_count})
+
+def delivery(request):
+    return render(request,'delivery.html')

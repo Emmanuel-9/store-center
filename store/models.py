@@ -7,7 +7,7 @@ from django.db.models.signals import post_save
 
 # Create your models here.
 class StorageUnits(models.Model):
-    slots = models.CharField(max_length=100)
+    slots = models.IntegerField()
     type_of_goods = models.CharField(max_length=50)
     start_date_of_storage = models.DateTimeField(default=timezone.now)
 
@@ -42,6 +42,14 @@ class UserProfile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.userprofile.save()
+
+    def create_profile(self):
+        self.save()
+
+    def delete_profile(self):
+        self.delete()
+
+
 
 class Slot(models.Model):
     image_of_good = models.ImageField(upload_to='slots/')
@@ -84,3 +92,12 @@ class Category(models.Model):
     @classmethod
     def find_category(cls, category_id):
         return cls.objects.filter(id=category_id)    
+
+class Delivery(models.Model):
+    recipient = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    charges = models.IntegerField()
+    contact = models.CharField(max_length=300)
+    
+    def __str__(self):
+        self.recipient
