@@ -21,9 +21,9 @@
             <div class="card" >
                 <div class="card-top bg-info" style="height: 90px;">
                 <h4 class="card-title" style="color: aliceblue;text-align: center; margin-top: 2%;">{{ employeeslot.name_of_good }}
-                    <form action="{% url 'slot_delete' employeeslot.id %}" method="post" class="btn btn-outline-danger">
+                    <form action="{% url 'slot_delete' employeeslot.id %}" method="post">
                     {% csrf_token %}
-                    <input type="submit" value='Delete' style="font-size: 10px;">
+                    <button type="submit"  style="background-color: red;color: white;font-size: 15px;">Delete</button>
                     </form>
                 </h4>
                 </div>
