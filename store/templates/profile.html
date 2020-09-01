@@ -8,14 +8,14 @@
         <div class="card" style="background-color: bisque; padding-left: 10px;">
         <img class="rounded-circle d-block mx-auto" style="margin-top: 3%;height: 125px;width: 125px;" src="{{ user.userprofile.profile_picture.url }}">
         <p class="text-center mt-3" style="font-size: 20px;">{{user.username}}</p>
-        <p>Email: {{user.email}}</p>
+        <p>Email: {{user.userprofile.email}}</p>
         <p>Contact: {{user.userprofile.contact}}</p>
-        <p> Slots: {{user.userprofile.goods_slots}} </p>
         
         <a href="{% url 'update_profile' user.username%}"><button type="button" class="btn btn-success btn-sm"> Update profile </button></a>
         </div>
        </div>
       </div><br>
+      {% if user.is_authenticated and user.is_customer %}
       <div class="text-center" style="font-size: 30px;">You have {{count}} slot(s)</div><br>
       <div class="row">
         {% if slots %}
@@ -32,11 +32,13 @@
                     <p><strong>Date of submission:</strong> {{ slot.added|date }}</p>
                 </div>
                 <hr>
-                <h4 class="card-title text-center"><a class="btn btn-sm btn-success" href="">Pick Up</a><a class="btn btn-sm btn-warning" href="">Delivery</a> </h4>
+                <h4 class="card-title text-center"><a class="btn btn-sm btn-success" href="{% url 'pickup' %}">Pick Up</a><a class="btn btn-sm btn-warning" href="{% url 'delivery' slot.id %}">Delivery</a> </h4>
             </div>
         </div>
         {% endfor %}
         {% endif %}
       </div>
+      {% else %}
+      {% endif %}
 </div>
 {% endblock %}
