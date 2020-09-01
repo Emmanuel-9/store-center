@@ -3,12 +3,13 @@ from .forms import EditProfileForm,SlotsForm,CategoryForm,CustomerSignUpForm,Emp
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import StorageSerializer
-from .models import StorageUnits,UserProfile,Slot,Category,User
+from .models import StorageUnits,UserProfile,Slot,Category,User, Delivery
 from .permissions import IsAdminOrReadOnly
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.views.generic import CreateView
 from django.http import HttpResponseRedirect
+
 # Create your views here.
 
 
@@ -155,4 +156,8 @@ def pick_up(request):
     else:
         form = PickupForm()
     return render(request, 'pickup.html', {'form': form})
+
+def customer_delivery(request):
+    customer = Delivery.objects.all()
+    return render(request, 'customerdelivery.html', {'customer': customer})
 
