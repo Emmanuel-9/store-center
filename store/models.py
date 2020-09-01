@@ -140,8 +140,8 @@ class Delivery(models.Model):
 class Pickup(models.Model):
     name_of_good = models.CharField(max_length=250)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    contact = models.CharField(max_length=50)
+    contact = models.IntegerField()
     email = models.EmailField()
-    date_of_pickup = models.DateField()
-    time_of_pickup =models.TimeField(auto_now=False, auto_now_add=False)
-
+    date_of_pickup = models.CharField(max_length=50)
+    time_of_pickup =models.CharField(max_length=50)
+    slot = models.ForeignKey(Slot, on_delete=models.CASCADE, null=True)
