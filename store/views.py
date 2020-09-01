@@ -3,7 +3,7 @@ from .forms import EditProfileForm,SlotsForm,CategoryForm,CustomerSignUpForm,Emp
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import StorageSerializer
-from .models import StorageUnits,UserProfile,Slot,Category,User, Delivery
+from .models import StorageUnits,UserProfile,Slot,Category,User, Delivery, Pickup
 from .permissions import IsAdminOrReadOnly
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
@@ -145,14 +145,16 @@ def slot_delete(request, id):
     if request.method == 'POST':
         slot_that_is_ready_to_be_deleted.delete()
 
-    return redirect('employeeslots-info')
+    return redirect('home')
 
-def pick_up(request):
+def pick_up(request, slot_id ):
+    slot = Slot.objects.get(id=slot_id)
     if request.method == "POST":
         form = PickupForm(request.POST)
         if form.is_valid():
             pick_up = form.save(commit=False)
             pick_up.user= request.user
+            pick_up.slot = slot
             pick_up.save()
             return redirect('home')
     else:
@@ -166,4 +168,14 @@ def customer_delivery(request, slot_id):
     except Delivery.DoesNotExist:
         customer = None
     return render(request, 'customerdelivery.html', {'customer': customer})
+
+
+def customer_pickup(request, slot_id):
+    try:
+        slot = Slot.objects.get(id=slot_id)
+        pickup = Pickup.objects.filter(slot=slot)
+    except Pickup.DoesNotExist:
+        pickup = None
+    return render(request, 'customerpickup.html', {'pickup': pickup})
+
 

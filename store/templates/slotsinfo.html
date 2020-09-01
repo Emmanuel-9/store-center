@@ -21,9 +21,9 @@
             <div class="card" >
                 <div class="card-top bg-info" style="height: 90px;">
                 <h4 class="card-title" style="color: aliceblue;text-align: center; margin-top: 2%;">{{ employeeslot.name_of_good }}
-                    <form action="{% url 'slot_delete' employeeslot.id %}" method="post" class="btn btn-outline-danger">
+                    <form action="{% url 'slot_delete' employeeslot.id %}" method="post">
                     {% csrf_token %}
-                    <input type="submit" value='Delete' style="font-size: 10px;">
+                    <button type="submit"  style="background-color: red;color: white;font-size: 15px;">Delete</button>
                     </form>
                 </h4>
                 </div>
@@ -36,10 +36,14 @@
                 </div>
                 <hr>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <h4 class="card-title text-center"><a class="btn btn-sm btn-warning" href="{% url 'deliver' %}">Deliver</a> </h4>
 =======
                 <h4 class="card-title text-center"><a class="btn btn-sm btn-info" href="">Pick up details</a> <a class="btn btn-sm btn-warning" href="{% url 'deliver' employeeslot.id %}">Deliver details</a> </h4>
 >>>>>>> e5ef558791bf2f4097436188e60d6e369aace4d4
+=======
+                <h4 class="card-title text-center"><a class="btn btn-sm btn-info" href="{% url 'pickup' employeeslot.id %}">Pick up details</a><a class="btn btn-sm btn-warning" href="{% url 'deliver' employeeslot.id %}">Deliver details</a></h4>
+>>>>>>> c8f1e961a7b96b171bfb07edbc1fd4b613531e98
             </div>
         </div>
         {% endfor %}
@@ -65,7 +69,7 @@
                     <p><strong>Date of submission:</strong> {{ slot.added|date }}</p>
                 </div>
                 <hr>
-                <h4 class="card-title text-center"><a class="btn btn-sm btn-success" href="{% url 'pickup' %}">Pick Up</a><a class="btn btn-sm btn-warning" href="{% url 'delivery' slot.id %}">Delivery</a> </h4>
+                <h4 class="card-title text-center"><a class="btn btn-sm btn-success" href="{% url 'pickup1' slot.id  %}">Pick Up</a><a class="btn btn-sm btn-warning" href="{% url 'delivery' slot.id %}">Delivery</a> </h4>
             </div>
         </div>
         {% endfor %}

@@ -71,5 +71,5 @@ class DeliveryForm(forms.ModelForm):
 class PickupForm(forms.ModelForm):
     class Meta:
         model = Pickup
-        fields = ['contact', 'email',  'name_of_good', 'date_of_pickup', 'time_of_pickup']
+        fields = ['contact', 'email', 'date_of_pickup', 'time_of_pickup']
 
