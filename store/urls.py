@@ -19,8 +19,8 @@ urlpatterns = [
     path('<slot_id>/delivery/', views.delivery, name='delivery'),
     path('deletecategory/<id>/', views.card_delete, name='card_delete'),
     path('deleteslot/<id>/', views.slot_delete, name='slot_delete'),
-    path('customer/<slot_id>/', views.customer_pickup, name='pickup'),
-    path('customer/<slot_id>/', views.customer_delivery, name='deliver'),
+    path('pickup/<slot_id>/', views.customer_pickup, name='pickup'),
+    path('deliver/<slot_id>/', views.customer_delivery, name='deliver'),
     path('<slot_id>/pickup/', views.pick_up, name='pickup1')
 ]
 if settings.DEBUG:
