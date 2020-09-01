@@ -3,12 +3,13 @@ from .forms import EditProfileForm,SlotsForm,CategoryForm,CustomerSignUpForm,Emp
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import StorageSerializer
-from .models import StorageUnits,UserProfile,Slot,Category,User
+from .models import StorageUnits,UserProfile,Slot,Category,User, Delivery
 from .permissions import IsAdminOrReadOnly
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.views.generic import CreateView
 from django.http import HttpResponseRedirect
+
 # Create your views here.
 
 
@@ -76,12 +77,14 @@ def update_profile(request, username):
     return render(request, 'edit_profile.html',context)
 
 @login_required(login_url='/accounts/login/')
-def add_slot(request):
+def add_slot(request, category_id):
+    category = Category.objects.get(id=category_id)
     if request.method == 'POST':
         form = SlotsForm(request.POST, request.FILES)
         if form.is_valid():
             slot = form.save(commit=False)
-            slot.user = request.user
+            slot.category = category
+            slot.user = request.user.userprofile
             slot.save()
             return redirect('home')
     else:
@@ -89,24 +92,27 @@ def add_slot(request):
     return render(request, 'bookslot.html', {'form': form})
 
 @login_required(login_url='/accounts/login/')
-def slots_info(request, username):
+def slots_info(request, category_id, username):
     try:
-        user = User.objects.get(pk = username)
-        profile = UserProfile.objects.get(user = user)
-        slots = Slot.get_user_slots(profile.id)
-        slots_count = slots.count()
-        employeeslots = Slot.all_slots()
-        countslots = employeeslots.count()
+        user = UserProfile.objects.get(user=username)
+        category = Category.objects.get(id=category_id)
+        slots = Slot.objects.filter(user=user,category=category)
+        slot_count = slots.count()
     except Slot.DoesNotExist:
         slots = None
 
+    return render(request, 'slotsinfo.html',{'slots': slots,  'count': slot_count})
+    params = {
+        'slots': slots, 
+        'count': slot_count,
+    }   
+    return render(request, 'slotsinfo.html', params)
 
 
-    return render(request, 'slotsinfo.html',{'slots': slots, 'employeeslots': employeeslots, 'count': slots_count, 'countslots': countslots})
-
-def employeeslots_info(request):
+def employeeslots_info(request,category_id):
     try:
-        employeeslots = Slot.all_slots()
+        category = Category.objects.get(id=category_id)
+        employeeslots = Slot.objects.filter(category=category)
         countslots = employeeslots.count()
     except Slot.DoesNotExist:
         employeeslots = None
@@ -150,4 +156,8 @@ def pick_up(request):
     else:
         form = PickupForm()
     return render(request, 'pickup.html', {'form': form})
+
+def customer_delivery(request):
+    customer = Delivery.objects.all()
+    return render(request, 'customerdelivery.html', {'customer': customer})
 
