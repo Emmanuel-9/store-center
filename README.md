@@ -11,9 +11,9 @@
 
 [Emmanuel Orega](https://github.com/Emmanuel-9)
 
-Github link: https://github.com/Kingsleymuturi/Hood-connections 
+Github link: https://github.com/mc3o/store-centre 
 
-Live site: [View Site](https://hood-connect.herokuapp.com/)
+Live site: [View Site](https://store-centre.herokuapp.com/)
 # Description  
 This is a neighborhood application where a user have to signup first and be able to view different neighbourhoods. A user can join or leave a neighbourhood and once he/she joins, they can view information about that neighbourhood.
 
