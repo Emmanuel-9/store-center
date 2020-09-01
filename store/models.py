@@ -135,6 +135,7 @@ class Delivery(models.Model):
     location = models.CharField(max_length=50)
     email = models.EmailField()
     items = models.TextField()
+    slot = models.ForeignKey(Slot, on_delete=models.CASCADE, null=True)
 
 class Pickup(models.Model):
     name_of_good = models.CharField(max_length=250)

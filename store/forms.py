@@ -52,7 +52,7 @@ class EditProfileForm(forms.ModelForm):
     slots = forms.CharField(max_length=300, help_text='Enter the slots of your goods')
     class Meta:
         model = UserProfile
-        fields = ['profile_picture', 'items', 'contact', 'email','location_address']
+        fields = ['profile_picture', 'contact', 'email','location_address']
 
 class SlotsForm(forms.ModelForm):
     class Meta:
@@ -67,7 +67,7 @@ class CategoryForm(forms.ModelForm):
 class DeliveryForm(forms.ModelForm):
     class Meta:
         model = Delivery
-        exclude = []
+        exclude = ['items','slot']
 
 class PickupForm(forms.ModelForm):
     class Meta:

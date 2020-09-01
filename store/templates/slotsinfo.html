@@ -35,7 +35,7 @@
                     <p><strong>Submitted by:</strong> {{ employeeslot.user.user.username }}</p>
                 </div>
                 <hr>
-                <h4 class="card-title text-center"><a class="btn btn-sm btn-warning" href="{% url 'deliver' %}">Deliver</a> </h4>
+                <h4 class="card-title text-center"><a class="btn btn-sm btn-info" href="">Pick up details</a> <a class="btn btn-sm btn-warning" href="{% url 'deliver' employeeslot.id %}">Deliver details</a> </h4>
             </div>
         </div>
         {% endfor %}
@@ -61,7 +61,7 @@
                     <p><strong>Date of submission:</strong> {{ slot.added|date }}</p>
                 </div>
                 <hr>
-                <h4 class="card-title text-center"><a class="btn btn-sm btn-success" href="{% url 'pickup' %}">Pick Up</a><a class="btn btn-sm btn-warning" href="{% url 'delivery'%}">Delivery</a> </h4>
+                <h4 class="card-title text-center"><a class="btn btn-sm btn-success" href="{% url 'pickup' %}">Pick Up</a><a class="btn btn-sm btn-warning" href="{% url 'delivery' slot.id %}">Delivery</a> </h4>
             </div>
         </div>
         {% endfor %}
