@@ -21,7 +21,7 @@ urlpatterns = [
     path('deleteslot/<id>/', views.slot_delete, name='slot_delete'),
     path('customer/<slot_id>/', views.customer_pickup, name='pickup'),
     path('customer/<slot_id>/', views.customer_delivery, name='deliver'),
-    path('<slot_id>/pickup/', views.pickup, name='pickup1')
+    path('<slot_id>/pickup/', views.pick_up, name='pickup1')
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
