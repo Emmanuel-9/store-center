@@ -49,10 +49,9 @@ class EmployeeSignUpForm(UserCreationForm):
 
 
 class EditProfileForm(forms.ModelForm):
-    slots = forms.CharField(max_length=300, help_text='Enter the slots of your goods')
     class Meta:
         model = UserProfile
-        fields = ['profile_picture', 'contact', 'email','location_address']
+        fields = ['profile_picture', 'contact', 'email']
 
 class SlotsForm(forms.ModelForm):
     class Meta:
