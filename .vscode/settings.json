@@ -1,7 +1,7 @@
 {
 
 
-    "python.pythonPath": "virtual/bin/python"
+    "python.pythonPath": "virtual\\Scripts\\python.exe"
 
     
 

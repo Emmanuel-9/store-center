@@ -119,12 +119,14 @@ def employeeslots_info(request,category_id):
     return render(request, 'slotsinfo.html',{'employeeslots': employeeslots, 'countslots': countslots})
 
 
-def delivery(request):
+def delivery(request, slot_id):
+    slot = Slot.objects.get(id=slot_id)
     if request.method == 'POST':
         form = DeliveryForm(request.POST, request.FILES)
         if form.is_valid():
             delivery = form.save(commit=False)
             delivery.user = request.user.userprofile
+            delivery.slot = slot
             delivery.save()
             return redirect('home')
     else:
@@ -157,7 +159,11 @@ def pick_up(request):
         form = PickupForm()
     return render(request, 'pickup.html', {'form': form})
 
-def customer_delivery(request):
-    customer = Delivery.objects.all()
+def customer_delivery(request, slot_id):
+    try:
+        slot = Slot.objects.get(id=slot_id)
+        customer = Delivery.objects.filter(slot=slot)
+    except Delivery.DoesNotExist:
+        customer = None
     return render(request, 'customerdelivery.html', {'customer': customer})
 
