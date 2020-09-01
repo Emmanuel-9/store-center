@@ -16,7 +16,7 @@ Github link: https://github.com/mc3o/store-centre
 Live site: [View Site](https://store-centre.herokuapp.com/)
 # Description  
 This is a store application that allows customers to book for slots for storage of goods that they don't have space for their storage.
-More details on what a user can be found below on the User story.
+More details on what a user can do can be found below on the User story.
 
 ## User Story  
 A normal user can:
@@ -40,7 +40,7 @@ An Admin can:
 * delete a slot
 * declare a user as an employee
 
-Note: the admin can do all this from django admin dashboard. On the app he uses the app as a normal user!
+Note: the admin can do all this from django admin dashboard. On the app he/she uses the app as a normal user!
 
 
 ## Setup and Installation  
