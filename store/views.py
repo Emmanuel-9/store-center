@@ -145,7 +145,7 @@ def slot_delete(request, id):
     if request.method == 'POST':
         slot_that_is_ready_to_be_deleted.delete()
 
-    return redirect('employeeslots-info')
+    return redirect('home')
 
 def pick_up(request):
     if request.method == "POST":

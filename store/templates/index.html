@@ -51,9 +51,9 @@
                 <div class="card-top bg-info" style="height: 90px;">
                 <h4 class="card-title" style="color: aliceblue;text-align: center; margin-top: 2%;">{{ category.name }} 
                     {% if user.is_authenticated and user.is_employee %}
-                    <form action="{% url 'card_delete' category.id %}" method="post" class="btn btn-outline-danger">
+                    <form action="{% url 'card_delete' category.id %}" method="post">
                     {% csrf_token %}
-                    <input type="submit" value='Delete'>
+                    <button type="submit"  style="background-color: red;color: white;font-size: 15px;">Delete</button>
                     </form>
                     {% endif %}
                 </h4>
