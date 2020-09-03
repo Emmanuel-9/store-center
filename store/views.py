@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import EditProfileForm,SlotsForm,CategoryForm,CustomerSignUpForm,EmployeeSignUpForm, DeliveryForm,PickupForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializer import StorageSerializer
-from .models import StorageUnits,UserProfile,Slot,Category,User, Delivery, Pickup
+from .serializer import *
+from .models import StorageUnits,UserProfile,Slot,Category,User, Delivery, Pickup,Employee,Customer
 from .permissions import IsAdminOrReadOnly
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
@@ -51,7 +51,7 @@ class StorageList(APIView):
         all_merch = StorageUnits.objects.all()
         serializers = StorageSerializer(all_merch, many=True)
         return Response(serializers.data)    
-        permission_classes = (IsAdminOrReadOnly,)
+        permission_classes = (IsAdminOrReadOnly)
 
 def profile(request, username):
     try:
@@ -180,4 +180,45 @@ def customer_pickup(request, slot_id):
         pickup = None
     return render(request, 'customerpickup.html', {'pickup': pickup})
 
+class UserList(APIView):
+    def get(self, request, format=None):
+        all_user = User.objects.all()
+        serializers = UserSerializer(all_user, many=True)
+        return Response(serializers.data)    
+        permission_classes = (IsAdminOrReadOnly)
 
+class EmployeeList(APIView):
+    def get(self, request, format=None):
+        all_employee = Employee.objects.all()
+        serializers = EmployeeSerializer(all_employee, many=True)
+        return Response(serializers.data)    
+        permission_classes = (IsAdminOrReadOnly)
+
+
+class SlotList(APIView):
+    def get(self, request, format=None):
+        all_slot = Slot.objects.all()
+        serializers = SlotSerializer(all_slot, many=True)
+        return Response(serializers.data)    
+        permission_classes = (IsAdminOrReadOnly)        
+
+class CategoryList(APIView):
+    def get(self, request, format=None):
+        all_category = Category.objects.all()
+        serializers = CategorySerializer(all_category, many=True)
+        return Response(serializers.data)    
+        permission_classes = (IsAdminOrReadOnly)        
+
+class CustomerList(APIView):
+    def get(self, request, format=None):
+        all_customer = Customer.objects.all()
+        serializers = CustomerSerializer(all_customer, many=True)
+        return Response(serializers.data)    
+        permission_classes = (IsAdminOrReadOnly)
+
+class UserProfileList(APIView):
+    def get(self, request, format=None):
+        all_userprofile = UserProfile.objects.all()
+        serializers = UserProfileSerializer(all_userprofile, many=True)
+        return Response(serializers.data)    
+        permission_classes = (IsAdminOrReadOnly,)        

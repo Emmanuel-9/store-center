@@ -26,7 +26,13 @@ urlpatterns = [
     path('deleteslot/<id>/', views.slot_delete, name='slot_delete'),
     path('pickup/<slot_id>/', views.customer_pickup, name='pickup'),
     path('deliver/<slot_id>/', views.customer_delivery, name='deliver'),
-    path('<slot_id>/pickup/', views.pick_up, name='pickup1')
+    path('<slot_id>/pickup/', views.pick_up, name='pickup1'),
+    path('api/category',views.CategoryList.as_view()),
+    path('api/slot',views.SlotList.as_view()),
+    path('api/user',views.UserList.as_view()),
+    path('api/employee',views.EmployeeList.as_view()),
+    path('api/customer',views.CustomerList.as_view()),
+    path('api/userprofile',views.UserProfileList.as_view())
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
