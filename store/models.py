@@ -145,3 +145,4 @@ class Pickup(models.Model):
     date_of_pickup = models.CharField(max_length=50)
     time_of_pickup =models.CharField(max_length=50)
     slot = models.ForeignKey(Slot, on_delete=models.CASCADE, null=True)
+    

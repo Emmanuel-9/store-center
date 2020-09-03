@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.views.generic import CreateView
 from django.http import HttpResponseRedirect
+import datetime
 
 # Create your views here.
 
@@ -101,10 +102,11 @@ def slots_info(request, category_id, username):
     except Slot.DoesNotExist:
         slots = None
 
-    return render(request, 'slotsinfo.html',{'slots': slots,  'count': slot_count})
+    
     params = {
         'slots': slots, 
         'count': slot_count,
+        
     }   
     return render(request, 'slotsinfo.html', params)
 
