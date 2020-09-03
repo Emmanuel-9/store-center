@@ -35,6 +35,8 @@
                     <p><strong>Submitted by:</strong> {{ employeeslot.user.user.username }}</p>
                 </div>
                 <hr>
+                <h4 class="card-title text-center"><a class="btn btn-sm btn-warning" href="{% url 'deliver' %}">Deliver</a> </h4>
+                <h4 class="card-title text-center"><a class="btn btn-sm btn-info" href="">Pick up details</a> <a class="btn btn-sm btn-warning" href="{% url 'deliver' employeeslot.id %}">Deliver details</a> </h4>
                 <h4 class="card-title text-center"><a class="btn btn-sm btn-info" href="{% url 'pickup' employeeslot.id %}">Pick up details</a><a class="btn btn-sm btn-warning" href="{% url 'deliver' employeeslot.id %}">Deliver details</a></h4>
             </div>
         </div>
@@ -57,7 +59,7 @@
                 <img class="card-img" src="{{ slot.image_of_good.url }}" alt="" style="height: 300px;">
                 <div class="card-body" style="height: 120px;">
                     <p><strong>Mass:</strong> {{slot.mass_of_good_in_kgs}}kgs</p>
-                    <p><strong>Current cost to be paid:</strong> shs</p>
+                    <p><strong>Current cost to be paid:</strong> Shs. {{pickup.days}} * {{cart.cost}}</p>
                     <p><strong>Date of submission:</strong> {{ slot.added|date }}</p>
                 </div>
                 <hr>
