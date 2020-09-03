@@ -51,9 +51,9 @@
                 <div class="card-top bg-info" style="height: 90px;">
                 <h4 class="card-title" style="color: aliceblue;text-align: center; margin-top: 2%;">{{ category.name }} 
                     {% if user.is_authenticated and user.is_employee %}
-                    <form action="{% url 'card_delete' category.id %}" method="post" class="btn btn-outline-danger">
+                    <form action="{% url 'card_delete' category.id %}" method="post">
                     {% csrf_token %}
-                    <input type="submit" value='Delete'>
+                    <button type="submit"  style="background-color: red;color: white;font-size: 15px;">Delete</button>
                     </form>
                     {% endif %}
                 </h4>
@@ -64,7 +64,7 @@
                         <p><strong>Slots remaining: {{category.slots_remaining}} slots</strong></p>
                     </div>
                     <hr>
-                    {% if user.is_authenticated and user.is_employee %}<h4 class="card-title text-center"><a class="btn btn-sm btn-outline-info" href="{% url 'employeeslots-info' %}">Slots info</a></h4>{% else %}<h4 class="card-title text-center"><a class="btn btn-sm btn-outline-info" href="{% url 'new-slot' %}">Book slot</a><a class="btn btn-sm btn-outline-info" href="{% url 'slots-info' user.id %}">Slots info</a> </h4>{% endif %}
+                    {% if user.is_authenticated and user.is_employee %}<h4 class="card-title text-center"><a class="btn btn-sm btn-outline-info" href="{% url 'employeeslots-info' category.id %}">Slots info</a></h4>{% else %}<h4 class="card-title text-center"><a class="btn btn-sm btn-outline-info" href="{% url 'new-slot' category.id %}">Book slot</a><a class="btn btn-sm btn-outline-info" href="{% url 'slots-info' category.id user.id %}">Slots info</a> </h4>{% endif %}
             </div>
         </div>
         {% endfor %}

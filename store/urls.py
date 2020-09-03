@@ -13,14 +13,15 @@ urlpatterns = [
     path('profile/<username>/',views.profile, name='profile'),
     path('profile/<username>/update/',views.update_profile, name='update_profile'), 
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('new-slot/', views.add_slot, name='new-slot'),
-    path('slot-info/<username>/', views.slots_info, name='slots-info'),
-    path('slots-info/', views.employeeslots_info, name='employeeslots-info'),
-    path('delivery/', views.delivery, name='delivery'),
+    path('<category_id>/new-slot/', views.add_slot, name='new-slot'),
+    path('slot-info/<category_id>/<username>/', views.slots_info, name='slots-info'),
+    path('slots-info/<category_id>/', views.employeeslots_info, name='employeeslots-info'),
+    path('<slot_id>/delivery/', views.delivery, name='delivery'),
     path('deletecategory/<id>/', views.card_delete, name='card_delete'),
     path('deleteslot/<id>/', views.slot_delete, name='slot_delete'),
-    path('pickup/', views.pick_up, name='pickup'),
-
+    path('pickup/<slot_id>/', views.customer_pickup, name='pickup'),
+    path('deliver/<slot_id>/', views.customer_delivery, name='deliver'),
+    path('<slot_id>/pickup/', views.pick_up, name='pickup1')
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

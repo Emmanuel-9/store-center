@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from .models import User,UserProfile,Slot,Category,Delivery
 from .models import User,Employee,Customer,UserProfile,Slot,Category, Delivery,Pickup
 from django.db import transaction
+
 
 
 class CustomerSignUpForm(UserCreationForm):
@@ -49,7 +51,7 @@ class EmployeeSignUpForm(UserCreationForm):
 class EditProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['profile_picture', 'items', 'contact', 'email','location_address']
+        fields = ['profile_picture', 'contact', 'email']
 
 class SlotsForm(forms.ModelForm):
     class Meta:
@@ -60,13 +62,14 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ['name', 'image', 'cost', 'slots_remaining']
-        
+
 class DeliveryForm(forms.ModelForm):
     class Meta:
         model = Delivery
-        exclude = []
+        exclude = ['items','slot']
 
 class PickupForm(forms.ModelForm):
     class Meta:
         model = Pickup
-        fields = ['contact', 'email',  'name_of_good', 'date_of_pickup', 'time_of_pickup']
+        fields = ['contact', 'email', 'date_of_pickup', 'time_of_pickup']
+
