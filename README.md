@@ -13,7 +13,7 @@
 
 Github link: https://github.com/mc3o/store-centre 
 
-Live site: [View Site](https://store-centre.herokuapp.com/)
+Live site: [View Site](https://store-center.herokuapp.com/)
 # Description  
 This is a store application that allows customers to book for slots for storage of goods that they don't have space for their storage.
 More details on what a user can do can be found below on the User story.
