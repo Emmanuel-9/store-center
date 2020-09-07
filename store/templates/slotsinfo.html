@@ -61,7 +61,7 @@
                     <p><strong>Date of submission:</strong> {{ slot.added|date }}</p>
                 </div>
                 <hr>
-                <h4 class="card-title text-center"><a class="btn btn-sm btn-success" href="{% url 'pickup1' slot.id  %}">Pick Up</a><a class="btn btn-sm btn-warning" href="{% url 'delivery' slot.id %}">Delivery</a> </h4>
+                <h4 class="card-title text-center"><a class="btn btn-sm btn-success" id="pickup1" href="{% url 'pickup1' slot.id  %}">Pick Up</a><a class="btn btn-sm btn-warning" id="delivery1" href="{% url 'delivery' slot.id %}">Delivery</a> </h4>
             </div>
         </div>
         {% endfor %}

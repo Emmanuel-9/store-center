@@ -137,3 +137,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR,)
 MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'store.User'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
