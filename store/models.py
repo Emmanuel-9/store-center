@@ -11,6 +11,7 @@ class User(AbstractUser):
     is_employee = models.BooleanField(default=False)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
+    contact = models.IntegerField(null=True)
 
 
 class Customer(models.Model):
@@ -44,7 +45,7 @@ class Goods(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=50)
     image = models.ImageField(upload_to='categories/')
-    cost = models.IntegerField(blank=False)
+    cost = models.DecimalField(blank=False, decimal_places=1, max_digits=5)
     slots_remaining = models.IntegerField(null=True, blank=False)
 
     def __str__(self):
@@ -58,15 +59,14 @@ class Category(models.Model):
 
     @classmethod
     def find_category(cls, category_id):
-        return cls.objects.filter(id=category_id)    
-
+        return cls.objects.filter(id=category_id)   
     
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='media/',default='porsche.jpeg')
     items = models.TextField()
-    contact = models.CharField(max_length=50)
+    contact = models.IntegerField(null=True)
     email = models.EmailField()
     location_address = models.CharField(max_length=300, null=True) 
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)

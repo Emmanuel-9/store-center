@@ -10,6 +10,7 @@ class CustomerSignUpForm(UserCreationForm):
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
     email = forms.EmailField()
+    contact = forms.IntegerField(required=True)
 
     class Meta(UserCreationForm.Meta):
         model = User

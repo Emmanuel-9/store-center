@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
 <div class="container bg-info" style="color:white;margin-top: 4%;">
     <div class="row">
@@ -13,7 +14,7 @@
     
                 </fieldset>
                 <div class="form-group">
-                    <button type='submit' class="btn btn-sm btn-success">Pick up</button>
+                    <button type='submit' class="btn btn-sm btn-success" id="pickup">Pick up</button>
                 </div>
             </form>
             
