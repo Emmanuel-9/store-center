@@ -1,15 +1,15 @@
 # Store-centre
 
 ##### Collaborators
-[Kingsley Muturi](https://github.com/Kingsleymuturi)
+[Kingsley Muturi](https://github.com/Kingsleymuturi)  PROJECT LEAD
 
-[Frankline Kiplangat](https://github.com/Frankline-Kiplangat)
+[Frankline Kiplangat](https://github.com/Frankline-Kiplangat) DATABASE ENGINEER
 
-[Andrew](https://github.com/Andrew59-boop)
+[Andrew](https://github.com/Andrew59-boop) API DEVELOPER
 
-[Sarah Sindet](https://github.com/sarahsindet)
+[Sarah Sindet](https://github.com/sarahsindet) FRONTEND DEVELOPER
 
-[Emmanuel Orega](https://github.com/Emmanuel-9)
+[Emmanuel Orega](https://github.com/Emmanuel-9)  BACKEND DEVELOPER
 
 Github link: https://github.com/mc3o/store-centre 
 
